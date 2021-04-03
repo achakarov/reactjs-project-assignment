@@ -2,32 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory, useParams } from 'react-router';
 import { useGlobalContext } from '../context';
-import { db } from '../firebase';
+import { deleteOne, likeOne, getOneRecipe } from '../services';
 
 function SingleRecipeDetails() {
   const { id } = useParams();
   const { user } = useGlobalContext();
   const history = useHistory();
-  // const [recipe, setRecipe] = useState(null);
+  // const [recipe, setRecipe] = useState(null); TODO - fix the initial state
   const [recipe, setRecipe] = useState({});
 
-  const getOne = (id) => {
-    return db.collection('recipes').doc(id).get();
-  };
-
-  const likeOne = (recipeId, likes) => {
-    return db
-      .collection('recipes')
-      .doc(recipeId)
-      .update({ likesCounter: likes });
-  };
-
-  const deleteOne = (id) => {
-    return db.collection('recipes').doc(id).delete();
-  };
-
   useEffect(() => {
-    getOne(id)
+    getOneRecipe(id)
       .then((res) => setRecipe({ ...res.data() }))
       .catch((err) => console.log(err));
   }, [id]);
@@ -46,7 +31,7 @@ function SingleRecipeDetails() {
 
   const onRecipeLikeButtonClickHandler = () => {
     const incrementedLikes = Number(likesCounter) + 1;
-    likeOne(id, incrementedLikes).then(() => {
+    likeOne(id, incrementedLikes, user.uid).then(() => {
       setRecipe((oldState) => ({
         ...oldState,
         likesCounter: incrementedLikes,

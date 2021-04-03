@@ -53,6 +53,7 @@ function CreateRecipe() {
       category,
       owner: user.uid,
       likesCounter: 0,
+      peopleLiked: [],
     });
   };
 

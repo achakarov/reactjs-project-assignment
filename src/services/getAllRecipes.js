@@ -1,6 +1,6 @@
 import { db } from '../firebase';
 
-export const getAllRecipes = async () => {
+const getAllRecipes = async () => {
   try {
     const { docs } = await db.collection('recipes').get();
 
@@ -17,3 +17,5 @@ export const getAllRecipes = async () => {
     return;
   }
 };
+
+export default getAllRecipes;

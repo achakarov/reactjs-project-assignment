@@ -8,6 +8,8 @@ function Register() {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
 
+  //TODO - register in separate file
+
   const register = (e) => {
     e.preventDefault();
     if (password === repeatPassword) {

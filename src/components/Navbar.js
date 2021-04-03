@@ -6,7 +6,7 @@ import { logout } from '../services/userServices';
 function Navbar() {
   const { user } = useGlobalContext();
 
-  //Да изнеса в отделен компонент
+  //TODO - export returnUserInfo into separate component
   const returnUserInfo = (user) => {
     if (user !== null) {
       return (

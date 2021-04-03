@@ -7,6 +7,7 @@ function EditRecipe() {
   let { id } = useParams();
   const history = useHistory();
 
+  //TODO use the common functions from recipeServices
   const getOne = (id) => {
     return db.collection('recipes').doc(id).get();
   };

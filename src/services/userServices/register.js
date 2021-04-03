@@ -9,3 +9,5 @@ const register = (email, password, repeatPassword) => {
 };
 
 export default register;
+
+//TODO FIX the FUNC

@@ -21,7 +21,6 @@ function ActionButtons(owner) {
           </Link>
         </>
       ) : (
-        // отделен компонент
         <Link
           className="btn btn-success"
           to={`/recipe/details/${id}`}

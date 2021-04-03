@@ -1,29 +1,38 @@
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
+// import RecipeList from '../components/RecipeList';
+// import { db } from '../firebase';
+
+import React from 'react';
 import RecipeList from '../components/RecipeList';
-import { db } from '../firebase';
+import { useGetRecipes } from '../data/use-get-recipes';
 
 function Home() {
-  const [recipes, setRecipes] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [recipes, setRecipes] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  const [loading, error, recipes] = useGetRecipes();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      const data = await db.collection('recipes').get();
-      setLoading(false);
-      setRecipes(
-        data.docs.map((doc) => {
-          return {
-            id: doc.id,
-            ...doc.data(),
-          };
-        })
-      );
-    };
-    if (!recipes.length) {
-      fetchData();
-    }
-  }, [recipes, loading, setRecipes, setLoading]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setLoading(true);
+  //     const data = await db.collection('recipes').get();
+  //     setLoading(false);
+  //     setRecipes(
+  //       data.docs.map((doc) => {
+  //         return {
+  //           id: doc.id,
+  //           ...doc.data(),
+  //         };
+  //       })
+  //     );
+  //   };
+  //   if (!recipes.length) {
+  //     fetchData();
+  //   }
+  // }, [recipes, loading, setRecipes, setLoading]);
+
+  if (error) {
+    <p className="text-center">{error}</p>;
+  }
 
   return (
     <>

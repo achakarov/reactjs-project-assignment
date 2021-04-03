@@ -2,13 +2,13 @@
 
 The project shows a cook book app created with React & Firebase.
 
-## Functionality for registered users
-
-Registered users can login, see all available recipes in the Database, create, edit & delete their own recipes, like recipes of others.
-
 ## Functionality for guest users
 
 Guest users can login, register and see the home page with all available recipes.
+
+## Functionality for registered users
+
+Registered users can login/logout, see all available recipes in the Database, create, edit & delete their own recipes, like recipes of others.
 
 ## Hosting
 

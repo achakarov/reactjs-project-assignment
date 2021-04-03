@@ -1,3 +1,19 @@
+# The Cook Book React JS course assignment for Softuni React course
+
+The project shows a cook book app created with React & Firebase.
+
+## Functionality for registered users
+
+Registered users can login, see all available recipes in the Database, create, edit & delete their own recipes, like recipes of others.
+
+## Functionality for guest users
+
+Guest users can login, register and see the home page with all available recipes.
+
+## Hosting
+
+The application is hosted publicly at: [https://the-cook-book.netlify.app/](https://the-cook-book.netlify.app/) .
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

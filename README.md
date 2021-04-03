@@ -1,4 +1,4 @@
-# "The Cook Book" React JS course assignment for Softuni React course
+# "The Cook Book" project assignment for Softuni React course
 
 The project shows a cook book app created with React & Firebase.
 

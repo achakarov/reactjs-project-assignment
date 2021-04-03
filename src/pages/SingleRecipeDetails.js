@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { useGlobalContext } from '../context';
 import { db } from '../firebase';
 
 function SingleRecipeDetails() {
   const { id } = useParams();
   const { user } = useGlobalContext();
+  const history = useHistory();
   // const [recipe, setRecipe] = useState(null);
   const [recipe, setRecipe] = useState({});
 
@@ -57,6 +58,7 @@ function SingleRecipeDetails() {
     deleteOne(id)
       .then(() => {
         setRecipe(null);
+        history.push('/');
       })
       .catch((err) => console.log(err));
   };
@@ -79,7 +81,7 @@ function SingleRecipeDetails() {
               <>
                 <Link
                   className="btn btn-danger"
-                  to="/"
+                  to={`/recipe/delete/${id}`}
                   onClick={onRecipeDeleteButtonClickHandler}
                 >
                   Archive

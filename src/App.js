@@ -11,30 +11,24 @@ import EditRecipe from './pages/EditRecipe';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CreateRecipe from './pages/CreateRecipe';
+import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
 
 function App() {
   return (
     <div>
       <Navbar />
       <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route exact path="/recipe/create">
-          <CreateRecipe />
-        </Route>
-        <Route exact path="/recipe/details/:id">
-          <SingleRecipeDetails />
-        </Route>
-        <Route exact path="/recipe/edit/:id">
-          <EditRecipe />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
+        <PublicRoute restricted={false} component={Home} path="/" exact />
+        <PrivateRoute exact component={CreateRecipe} path="/recipe/create" />
+        <PrivateRoute
+          exact
+          component={SingleRecipeDetails}
+          path="/recipe/details/:id"
+        />
+        <PrivateRoute exact component={EditRecipe} path="/recipe/edit/:id" />
+        <PublicRoute restricted={true} component={Register} path="/register" />
+        <PublicRoute restricted={true} component={Login} path="/login" />
         <Route path="*">
           <Error />
         </Route>

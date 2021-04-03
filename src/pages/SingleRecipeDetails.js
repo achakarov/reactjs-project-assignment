@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory, useParams } from 'react-router';
 import { useGlobalContext } from '../context';
-import { deleteOne, likeOne, getOneRecipe } from '../services';
+import { deleteOne, likeOne, getOneRecipe } from '../services/recipeServices';
 
 function SingleRecipeDetails() {
   const { id } = useParams();

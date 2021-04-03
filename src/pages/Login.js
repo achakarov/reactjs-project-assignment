@@ -1,30 +1,16 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { auth } from '../firebase';
+import { signIn } from '../services/userServices';
 
 function Login() {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const signIn = (e) => {
-    e.preventDefault();
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        history.push('/');
-      })
-      .catch((error) => {
-        setPassword('');
-        alert(error.message);
-      });
-  };
-
   return (
     <>
       <form className="text-center p-5 form-layout">
-        <p className="h4 mb-4">Sign in</p>
-        {/* change P to h4  */}
+        <h4 className="h4 mb-4">Sign in</h4>
 
         <input
           type="text"
@@ -49,7 +35,17 @@ function Login() {
         <button
           className="btn btn-danger w-25 m-auto my-4 btn-block"
           type="submit"
-          onClick={signIn}
+          onClick={(e) => {
+            e.preventDefault();
+            signIn(email, password)
+              .then(() => {
+                history.push('/');
+              })
+              .catch((error) => {
+                setPassword('');
+                alert(error.message);
+              });
+          }}
         >
           Sign in
         </button>

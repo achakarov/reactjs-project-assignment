@@ -1,16 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useGlobalContext } from '../context';
-import { auth } from '../firebase';
+import { logout } from '../services/userServices';
 
 function Navbar() {
   const { user } = useGlobalContext();
-
-  const logout = () => {
-    if (user) {
-      auth.signOut();
-    }
-  };
 
   //Да изнеса в отделен компонент
   const returnUserInfo = (user) => {

@@ -13,6 +13,7 @@ Registered users can login/logout, see all available recipes in the Database, cr
 ## Hosting
 
 The application is hosted publicly at: [https://the-cook-book.netlify.app/](https://the-cook-book.netlify.app/) .
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2001eb11-fac6-4e13-b44b-535ca8993497/deploy-status)](https://app.netlify.com/sites/the-cook-book/deploys)
 
 # Getting Started with Create React App
 

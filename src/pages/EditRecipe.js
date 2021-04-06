@@ -1,23 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
-import { db } from '../firebase';
+import { updateOne, getOneRecipe } from '../services/recipeServices';
 
 function EditRecipe() {
   const [recipe, setRecipe] = useState({});
   let { id } = useParams();
   const history = useHistory();
 
-  //TODO use the common functions from recipeServices
-  const getOne = (id) => {
-    return db.collection('recipes').doc(id).get();
-  };
-
-  const updateOne = (recipeId, data) => {
-    return db.collection('recipes').doc(recipeId).update(data);
-  };
-
   useEffect(() => {
-    getOne(id)
+    getOneRecipe(id)
       .then((res) => setRecipe({ ...res.data() }))
       .catch((err) => console.log(err));
   }, [id]);
@@ -94,12 +85,18 @@ function EditRecipe() {
           defaultValue={recipe.foodImageURL}
         />
 
-        <select name="category" select="" value={recipe.category}>
-          <option>Vegetables and legumes/beans</option>
-          <option>Fruits</option>
-          <option>Grain Food</option>
-          <option>Milk, cheese, eggs and alternatives</option>
-          <option>Lean meats and poultry, fish and alternatives</option>
+        <select name="category" defaultValue={recipe.category}>
+          <option value="Vegetables and legumes/beans">
+            Vegetables and legumes/beans
+          </option>
+          <option value="Fruits">Fruits</option>
+          <option value="Grain Food">Grain Food</option>
+          <option value="Milk, cheese, eggs and alternatives">
+            Milk, cheese, eggs and alternatives
+          </option>
+          <option value="Lean meats and poultry, fish and alternatives">
+            Lean meats and poultry, fish and alternatives
+          </option>
         </select>
         <button className="btn btn-danger w-25 m-auto my-4 btn-block">
           Edit it

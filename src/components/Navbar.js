@@ -2,36 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useGlobalContext } from '../context';
 import { logout } from '../services/userServices';
+import ReturnUserInfo from './ReturnUserInfo';
 
 function Navbar() {
   const { user } = useGlobalContext();
-
-  //TODO - export returnUserInfo into separate component
-  const returnUserInfo = (user) => {
-    if (user !== null) {
-      return (
-        <>
-          <Link className="nav-link" to="/recipe/create">
-            Share recipe
-          </Link>
-          <Link className="nav-link" to="/" onClick={logout}>
-            Logout
-          </Link>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <Link className="nav-link" to="/login">
-            Login
-          </Link>
-          <Link className="nav-link" to="/register">
-            Register
-          </Link>
-        </>
-      );
-    }
-  };
 
   return (
     <header className="masthead mb-auto">
@@ -44,7 +18,7 @@ function Navbar() {
           <Link className="nav-link" to="/">
             Welcome, {user ? `${user.email}` : 'Guest'}!
           </Link>
-          {returnUserInfo(user)}
+          <ReturnUserInfo user={user} logout={logout} />
         </nav>
       </div>
     </header>

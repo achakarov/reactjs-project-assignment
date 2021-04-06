@@ -1,6 +1,6 @@
 import React from 'react';
 import RecipeList from '../components/RecipeList';
-import { useGetRecipes } from '../data/use-get-recipes';
+import { useGetRecipes } from '../data/useGetRecipes';
 import Loading from '../components/Loading';
 
 function Home() {

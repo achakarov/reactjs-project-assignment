@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useHistory, useParams } from 'react-router';
 import { useGlobalContext } from '../context';
 import { deleteOne, likeOne, getOneRecipe } from '../services/recipeServices';
+import ActionButtons from '../components/ActionButtons';
 
 function SingleRecipeDetails() {
   const { id } = useParams();
@@ -48,6 +48,8 @@ function SingleRecipeDetails() {
       .catch((err) => console.log(err));
   };
 
+  const hasOwner = owner === user?.uid;
+
   return (
     <div className="row form-layout p-5">
       <div className="col-md-12">
@@ -62,29 +64,15 @@ function SingleRecipeDetails() {
             <p className="description">{description}</p>
           </div>
           <div className="actions">
-            {owner === user?.uid ? (
-              <>
-                <Link
-                  className="btn btn-danger"
-                  to={`/recipe/delete/${id}`}
-                  onClick={onRecipeDeleteButtonClickHandler}
-                >
-                  Archive
-                </Link>
-                <Link className="btn btn-info" to={`/recipe/edit/${id}`}>
-                  Edit
-                </Link>
-              </>
-            ) : (
-              // отделен компонент
-              <Link
-                className="btn btn-success"
-                to={`/recipe/details/${id}`}
-                onClick={onRecipeLikeButtonClickHandler}
-              >
-                {likesCounter} likes
-              </Link>
-            )}
+            <ActionButtons
+              owner={hasOwner}
+              onRecipeDeleteButtonClickHandler={
+                onRecipeDeleteButtonClickHandler
+              }
+              onRecipeLikeButtonClickHandler={onRecipeLikeButtonClickHandler}
+              id={id}
+              likesCounter={likesCounter}
+            />
           </div>
         </div>
 
@@ -92,7 +80,7 @@ function SingleRecipeDetails() {
           <h3 className="my-3 ingredient">Ingredients</h3>
           <ul>
             {ingredients?.map((item, index) => {
-              return <li key={index}>{item}</li>; //TODO FIX KEYS
+              return <li key={index}>{item}</li>;
             })}
           </ul>
         </div>

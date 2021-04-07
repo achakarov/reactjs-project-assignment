@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { register } from '../services/userServices';
+import { notifyError, notifySuccess } from '../services/notificationsHandler';
 
 function Register() {
   const history = useHistory();
@@ -13,13 +14,16 @@ function Register() {
     if (password === repeatPassword) {
       register(email, password)
         .then(() => {
+          notifySuccess('Successful registration!');
           history.push('/');
         })
-        .catch((error) => alert(error.message));
+        .catch((error) => {
+          notifyError(error.message);
+        });
     } else {
       setPassword('');
       setRepeatPassword('');
-      alert('Passwords must match!');
+      notifyError('Passwords must match!');
     }
   };
 

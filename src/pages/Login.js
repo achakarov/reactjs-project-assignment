@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { signIn } from '../services/userServices';
+import { notifyError, notifySuccess } from '../services/notificationsHandler';
 
 function Login() {
   const history = useHistory();
@@ -39,11 +40,12 @@ function Login() {
             e.preventDefault();
             signIn(email, password)
               .then(() => {
+                notifySuccess('Successfully logged in!');
                 history.push('/');
               })
               .catch((error) => {
                 setPassword('');
-                alert(error.message);
+                notifyError(error.message);
               });
           }}
         >

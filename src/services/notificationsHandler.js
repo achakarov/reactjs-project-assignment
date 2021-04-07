@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 
 export const notifyError = (error) => {
   return toast.error(error, {
-    autoClose: 3000,
+    autoClose: 5000,
     closeOnClick: true,
     pauseOnHover: true,
   });

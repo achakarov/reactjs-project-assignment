@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { auth } from '../firebase';
+import { register } from '../services/userServices';
 
 function Register() {
   const history = useHistory();
@@ -8,15 +8,11 @@ function Register() {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
 
-  //TODO - register in separate file
-
-  const register = (e) => {
+  const onRegisterButtonClick = (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      auth
-        .createUserWithEmailAndPassword(email, password)
-        .then((auth) => {
-          console.log(auth);
+      register(email, password)
+        .then(() => {
           history.push('/');
         })
         .catch((error) => alert(error.message));
@@ -63,7 +59,7 @@ function Register() {
         <button
           className="btn btn-danger my-4 btn-block w-25 m-auto"
           type="submit"
-          onClick={register}
+          onClick={onRegisterButtonClick}
         >
           Sign up
         </button>

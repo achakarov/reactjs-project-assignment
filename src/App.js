@@ -1,5 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Home from './pages/Home';
 import SingleRecipeDetails from './pages/SingleRecipeDetails';
@@ -18,6 +20,7 @@ function App() {
   return (
     <div>
       <Navbar />
+      <ToastContainer />
       <Switch>
         <PublicRoute restricted={false} component={Home} path="/" exact />
         <PrivateRoute exact component={CreateRecipe} path="/recipe/create" />

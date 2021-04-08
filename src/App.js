@@ -23,6 +23,8 @@ function App() {
       <ToastContainer />
       <Switch>
         <PublicRoute restricted={false} component={Home} path="/" exact />
+        <PublicRoute restricted={true} component={Register} path="/register" />
+        <PublicRoute restricted={true} component={Login} path="/login" />
         <PrivateRoute exact component={CreateRecipe} path="/recipe/create" />
         <PrivateRoute
           exact
@@ -30,8 +32,7 @@ function App() {
           path="/recipe/details/:id"
         />
         <PrivateRoute exact component={EditRecipe} path="/recipe/edit/:id" />
-        <PublicRoute restricted={true} component={Register} path="/register" />
-        <PublicRoute restricted={true} component={Login} path="/login" />
+
         <Route path="*">
           <Error />
         </Route>

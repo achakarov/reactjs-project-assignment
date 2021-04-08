@@ -1,62 +1,12 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 import { useGlobalContext } from '../context';
-import { db } from '../firebase';
+import { notifyError, notifySuccess } from '../services/notificationsHandler';
+import { createMeal } from '../services/recipeServices';
 
 function CreateRecipe() {
   const history = useHistory();
   const { user } = useGlobalContext();
-
-  //TODO createMeal into separate file
-  const createMeal = (
-    meal,
-    ingredients,
-    prepMethod,
-    description,
-    foodImageURL,
-    category
-  ) => {
-    const ingredientsArray = ingredients.split(',');
-
-    if (meal.length < 4) {
-      console.log('Meal name should be at least 4 characters long.');
-      return;
-    }
-
-    if (ingredientsArray.length < 2) {
-      console.log('There should be at least two ingredients.');
-      return;
-    }
-
-    if (prepMethod.length < 10 || description.length < 10) {
-      console.log(
-        'Preparation method and description should be at least 10 characters long.'
-      );
-      return;
-    }
-
-    if (!foodImageURL.startsWith('http')) {
-      console.log('foodImageURL must start with http:// or https:// .');
-      return;
-    }
-
-    if (!foodImageURL.startsWith('https')) {
-      console.log('foodImageURL must start with http:// or https:// .');
-      return;
-    }
-
-    return db.collection('recipes').add({
-      meal,
-      ingredients: ingredientsArray,
-      prepMethod,
-      description,
-      foodImageURL,
-      category,
-      owner: user.uid,
-      likesCounter: 0,
-      peopleLiked: [],
-    });
-  };
 
   const onCreateRecipeSubmit = (e) => {
     e.preventDefault();
@@ -69,16 +19,49 @@ function CreateRecipe() {
       category,
     } = e.target;
 
+    const ingredientsArray = ingredients.value.split(',');
+
+    if (meal.value.length < 4) {
+      notifyError('Meal name should be at least 4 characters long.');
+      return;
+    }
+
+    if (ingredientsArray.length < 2) {
+      notifyError('There should be at least two ingredients.');
+      return;
+    }
+
+    if (prepMethod.value.length < 10 || description.value.length < 10) {
+      notifyError(
+        'Preparation method and description should be at least 10 characters long.'
+      );
+      return;
+    }
+
+    if (!foodImageURL.value.startsWith('http')) {
+      notifyError('foodImageURL must start with http:// or https:// .');
+      return;
+    }
+
+    if (!foodImageURL.value.startsWith('https')) {
+      notifyError('foodImageURL must start with http:// or https:// .');
+      return;
+    }
+
     createMeal(
       meal.value,
-      ingredients.value,
+      ingredientsArray,
       prepMethod.value,
       description.value,
       foodImageURL.value,
-      category.value
+      category.value,
+      user.uid
     )
-      .then((res) => history.push('/'))
-      .catch((err) => console.log(err));
+      .then(() => {
+        notifySuccess('Recipe created successfully!');
+        history.push('/');
+      })
+      .catch((err) => notifyError(err.message));
   };
 
   return (

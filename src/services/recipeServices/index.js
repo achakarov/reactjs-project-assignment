@@ -4,6 +4,7 @@ import getOneRecipe from './getOneRecipe';
 import getAllRecipes from './getAllRecipes';
 import getCategoryImageUrl from './getCategoryImageUrl';
 import updateOne from './updateOne';
+import createMeal from './createMeal';
 
 export {
   deleteOne,
@@ -12,4 +13,5 @@ export {
   getOneRecipe,
   getCategoryImageUrl,
   updateOne,
+  createMeal,
 };

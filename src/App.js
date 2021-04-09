@@ -10,19 +10,19 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import EditRecipe from './pages/EditRecipe';
 import CreateRecipe from './pages/CreateRecipe';
-import GlobalErrorPage from './pages/GlobalErrorPage';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
+import CustomErrorBoundary from './components/CustomErrorBoundary';
 
 function App() {
   return (
     <div>
       <Navbar />
       <ToastContainer />
-      <GlobalErrorPage>
+      <CustomErrorBoundary>
         <Switch>
           <PublicRoute restricted={false} component={Home} path="/" exact />
           <PublicRoute
@@ -43,7 +43,7 @@ function App() {
             <Error />
           </Route>
         </Switch>
-      </GlobalErrorPage>
+      </CustomErrorBoundary>
       <Footer />
     </div>
   );

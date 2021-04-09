@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { updateOne, getOneRecipe } from '../services/recipeServices';
+import { notifyError, notifySuccess } from '../services/notificationsHandler';
 
 function EditRecipe() {
   const [recipe, setRecipe] = useState({});
@@ -17,6 +18,34 @@ function EditRecipe() {
     e.preventDefault();
     let ingredientsArray = [...e.target.ingredients.value.split(',')];
     const { meal, prepMethod, description, foodImageURL, category } = e.target;
+
+    if (meal.value.length < 4) {
+      notifyError('Meal name should be at least 4 characters long.');
+      return;
+    }
+
+    if (ingredientsArray.length < 2) {
+      notifyError('There should be at least two ingredients.');
+      return;
+    }
+
+    if (prepMethod.value.length < 10 || description.value.length < 10) {
+      notifyError(
+        'Preparation method and description should be at least 10 characters long.'
+      );
+      return;
+    }
+
+    if (!foodImageURL.value.startsWith('http')) {
+      notifyError('foodImageURL must start with http:// or https:// .');
+      return;
+    }
+
+    if (!foodImageURL.value.startsWith('https')) {
+      notifyError('foodImageURL must start with http:// or https:// .');
+      return;
+    }
+
     let updatedRecipe = {
       ...recipe,
       meal: meal.value,
@@ -28,8 +57,11 @@ function EditRecipe() {
     };
 
     updateOne(id, updatedRecipe)
-      .then((res) => history.push('/'))
-      .catch((err) => console.log(err));
+      .then(() => {
+        notifySuccess('Recipe successfully updated!');
+        history.push('/');
+      })
+      .catch((err) => notifyError(err.message));
   };
   return (
     <>

@@ -61,7 +61,10 @@ function SingleRecipeDetails() {
           <div className="infoPack">
             <h3 className="my-3">{meal}</h3>
             <p className="prep-method">{prepMethod}</p>
-            <p className="description">{description}</p>
+            <p className="description">
+              <br />
+              <i>"{description}"</i>
+            </p>
           </div>
           <div className="actions">
             <ActionButtons

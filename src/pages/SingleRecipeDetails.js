@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router';
 import { useGlobalContext } from '../context';
 import { deleteOne, likeOne, getOneRecipe } from '../services/recipeServices';
 import ActionButtons from '../components/ActionButtons';
+import Loading from '../components/Loading';
 
 function SingleRecipeDetails() {
   const { id } = useParams();
@@ -10,14 +11,22 @@ function SingleRecipeDetails() {
   const history = useHistory();
   // const [recipe, setRecipe] = useState(null); TODO - fix the initial state
   const [recipe, setRecipe] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let mounted = true;
     getOneRecipe(id)
-      .then((res) => setRecipe({ ...res.data() }))
+      .then((res) => {
+        if (mounted) {
+          setLoading(false);
+        }
+        setRecipe({ ...res.data() });
+      })
       .catch((err) => console.log(err));
+    return function cleanup() {
+      mounted = false;
+    };
   }, [id]);
-
-  //това може да се рендърваме в App.js и от там да подаваме като пропс
 
   const {
     meal,
@@ -51,44 +60,52 @@ function SingleRecipeDetails() {
   const hasOwner = owner === user?.uid;
 
   return (
-    <div className="row form-layout p-5">
-      <div className="col-md-12">
-        <div className="recepieInfo">
-          <div className="detailsFoodImage">
-            <img src={foodImageURL} alt={meal} />
-          </div>
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="row form-layout p-5">
+          <div className="col-md-12">
+            <div className="recepieInfo">
+              <div className="detailsFoodImage">
+                <img src={foodImageURL} alt={meal} />
+              </div>
 
-          <div className="infoPack">
-            <h3 className="my-3">{meal}</h3>
-            <p className="prep-method">{prepMethod}</p>
-            <p className="description">
-              <br />
-              <i>"{description}"</i>
-            </p>
-          </div>
-          <div className="actions">
-            <ActionButtons
-              owner={hasOwner}
-              onRecipeDeleteButtonClickHandler={
-                onRecipeDeleteButtonClickHandler
-              }
-              onRecipeLikeButtonClickHandler={onRecipeLikeButtonClickHandler}
-              id={id}
-              likesCounter={likesCounter}
-            />
+              <div className="infoPack">
+                <h3 className="my-3">{meal}</h3>
+                <p className="prep-method">{prepMethod}</p>
+                <p className="description">
+                  <br />
+                  <i>"{description}"</i>
+                </p>
+              </div>
+              <div className="actions">
+                <ActionButtons
+                  owner={hasOwner}
+                  onRecipeDeleteButtonClickHandler={
+                    onRecipeDeleteButtonClickHandler
+                  }
+                  onRecipeLikeButtonClickHandler={
+                    onRecipeLikeButtonClickHandler
+                  }
+                  id={id}
+                  likesCounter={likesCounter}
+                />
+              </div>
+            </div>
+
+            <div className="detailsIngredients">
+              <h3 className="my-3 ingredient">Ingredients</h3>
+              <ul>
+                {ingredients?.map((item, index) => {
+                  return <li key={index}>{item}</li>;
+                })}
+              </ul>
+            </div>
           </div>
         </div>
-
-        <div className="detailsIngredients">
-          <h3 className="my-3 ingredient">Ingredients</h3>
-          <ul>
-            {ingredients?.map((item, index) => {
-              return <li key={index}>{item}</li>;
-            })}
-          </ul>
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 

@@ -2,12 +2,13 @@ import React from 'react';
 import RecipeList from '../components/RecipeList';
 import { useGetRecipes } from '../data/useGetRecipes';
 import Loading from '../components/Loading';
+import GlobalErrorPage from './GlobalErrorPage';
 
 function Home() {
   const [loading, error, recipes] = useGetRecipes();
 
   if (error) {
-    <p className="text-center">{error}</p>;
+    return <GlobalErrorPage />;
   }
 
   return (

@@ -8,7 +8,7 @@ Guest users can login, register and see the home page with all available recipes
 
 ## Functionality for registered users
 
-Registered users can login/logout, see all available recipes in the Database, create, edit & delete their own recipes, like recipes of others.
+Registered users can login/logout, see all recipes from the Database, create new one, edit, delete or see their own recipes, like others' recipes.
 
 ## Hosting
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Recipe from './Recipe';
 
 function RecipeList({ recipes }) {
@@ -19,6 +20,9 @@ function RecipeList({ recipes }) {
         alt="No Recipes"
       />
       <h3>Food not found...</h3>
+      <Link to="recipe/create" className="btn btn-danger">
+        Share Recipe
+      </Link>
     </div>
   );
 }

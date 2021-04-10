@@ -16,6 +16,7 @@ import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import CustomErrorBoundary from './components/CustomErrorBoundary';
+import MyProfile from './components/MyProfile';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             path="/recipe/details/:id"
           />
           <PrivateRoute exact component={EditRecipe} path="/recipe/edit/:id" />
+          <PrivateRoute exact component={MyProfile} path="/my-profile" />
 
           <Route path="*">
             <Error />

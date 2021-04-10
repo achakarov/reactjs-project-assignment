@@ -15,7 +15,7 @@ function Navbar() {
           <Link className="nav-link" to="/">
             Home
           </Link>
-          <Link className="nav-link" to="/">
+          <Link className="nav-link" to="/my-profile">
             Welcome, {user ? `${user.email}` : 'Guest'}!
           </Link>
           <ReturnUserInfo user={user} logout={logout} />

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useGlobalContext } from '../context';
 import { useGetRecipes } from '../data/useGetRecipes';
-import GlobalErrorPage from '../pages/GlobalErrorPage';
-import Loading from './Loading';
-import RecipeList from './RecipeList';
+import GlobalErrorPage from './GlobalErrorPage';
+import Loading from '../components/Loading';
+import RecipeList from '../components/RecipeList';
 
 function MyProfile() {
   const [loading, error, recipes] = useGetRecipes();

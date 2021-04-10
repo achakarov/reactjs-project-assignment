@@ -16,7 +16,7 @@ import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
 import PublicRoute from './components/PublicRoute';
 import CustomErrorBoundary from './components/CustomErrorBoundary';
-import MyProfile from './components/MyProfile';
+import MyProfile from './pages/MyProfile';
 
 function App() {
   return (

@@ -9,7 +9,6 @@ function SingleRecipeDetails() {
   const { id } = useParams();
   const { user } = useGlobalContext();
   const history = useHistory();
-  // const [recipe, setRecipe] = useState(null); TODO - fix the initial state
   const [recipe, setRecipe] = useState({});
   const [loading, setLoading] = useState(true);
 
